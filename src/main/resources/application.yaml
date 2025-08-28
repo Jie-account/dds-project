@@ -1,11 +1,26 @@
 server:
   port: 8080
+  address: 0.0.0.0
+  # 暂时禁用SSL，使用HTTP协议
+  # ssl:
+  #   enabled: true
+  #   key-store: classpath:keystore.p12
+  #   key-store-password: fitness123
+  #   key-store-type: PKCS12
+  #   key-alias: fitness
+  # http2:
+  #   enabled: true
+  # # 添加HTTP重定向到HTTPS
+  # http:
+  #   port: 8081
+  #   redirect: https://localhost:8080
+
 spring:
   application:
     name: fitness
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://172.18.112.119:3307/dds?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+    url: jdbc:mysql://172.18.112.119:3307/dds?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8
     username: root
     password: 123
   jpa:
@@ -29,10 +44,10 @@ zrdds:
 # 传感器配置
 sensor:
   temperature:
-    interval: 5000  # 温度传感器数据发布间隔(毫秒)
+    interval: 10000000000  # 温度传感器数据发布间隔(毫秒)
     threshold: 30.0  # 温度阈值
   humidity:
-    interval: 8000  # 湿度传感器数据发布间隔(毫秒)
+    interval: 100000000000  # 湿度传感器数据发布间隔(毫秒)
     threshold: 80.0  # 湿度阈值
 
 # 日志配置
