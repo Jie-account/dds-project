@@ -5,6 +5,7 @@ src/main/resources/ZRDDS用户手册.pdf
 src/main/resources/javadoc
 !**/src/main/**/target/
 !**/src/test/**/target/
+**/*.log
 
 ### STS ###
 .apt_generated
