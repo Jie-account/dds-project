@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API测试页面</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .test-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        .test-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background: #5a6fd8;
+        }
+
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>API测试页面</h1>
+
+        <div class="test-section">
+            <div class="test-title">健康检查</div>
+            <button onclick="testHealth()">测试健康检查</button>
+            <div id="healthResult"></div>
+        </div>
+
+        <div class="test-section">
+            <div class="test-title">Echo测试</div>
+            <button onclick="testEcho()">测试Echo</button>
+            <div id="echoResult"></div>
+        </div>
+
+        <div class="test-section">
+            <div class="test-title">用户注册测试</div>
+            <button onclick="testSignUp()">测试注册</button>
+            <div id="signupResult"></div>
+        </div>
+
+        <div class="test-section">
+            <div class="test-title">用户登录测试</div>
+            <button onclick="testSignIn()">测试登录</button>
+            <div id="signinResult"></div>
+        </div>
+    </div>
+
+    <script>
+        async function testHealth() {
+            try {
+                const response = await fetch('/api/test/health');
+                const result = await response.json();
+                showResult('healthResult', JSON.stringify(result, null, 2), response.ok);
+            } catch (error) {
+                showResult('healthResult', '请求失败: ' + error.message, false);
+            }
+        }
+
+        async function testEcho() {
+            try {
+                const response = await fetch('/api/test/echo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        test: 'hello',
+                        timestamp: Date.now()
+                    })
+                });
+                const result = await response.json();
+                showResult('echoResult', JSON.stringify(result, null, 2), response.ok);
+            } catch (error) {
+                showResult('echoResult', '请求失败: ' + error.message, false);
+            }
+        }
+
+        async function testSignUp() {
+            try {
+                const response = await fetch('/api/user/signUp', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: 'testuser' + Date.now(),
+                        password: '123456',
+                        confirmPassword: '123456'
+                    })
+                });
+                const result = await response.json();
+                showResult('signupResult', JSON.stringify(result, null, 2), response.ok);
+            } catch (error) {
+                showResult('signupResult', '请求失败: ' + error.message, false);
+            }
+        }
+
+        async function testSignIn() {
+            try {
+                const response = await fetch('/api/user/signIn', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        username: 'testuser',
+                        password: '123456'
+                    })
+                });
+                const result = await response.json();
+                showResult('signinResult', JSON.stringify(result, null, 2), response.ok);
+            } catch (error) {
+                showResult('signinResult', '请求失败: ' + error.message, false);
+            }
+        }
+
+        function showResult(elementId, message, isSuccess) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.className = 'result ' + (isSuccess ? 'success' : 'error');
+        }
+    </script>
+</body>
+
+</html>
