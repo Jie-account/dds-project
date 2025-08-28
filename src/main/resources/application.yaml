@@ -1,0 +1,44 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: fitness
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://172.18.112.119:3307/dds?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+    username: root
+    password: 123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+# ZRDDS配置
+zrdds:
+  domain-id: 0
+  participant-name: FitnessParticipant
+  qos-profile: ZRDDS_QOS_PROFILES.xml
+
+# 传感器配置
+sensor:
+  temperature:
+    interval: 5000  # 温度传感器数据发布间隔(毫秒)
+    threshold: 30.0  # 温度阈值
+  humidity:
+    interval: 8000  # 湿度传感器数据发布间隔(毫秒)
+    threshold: 80.0  # 湿度阈值
+
+# 日志配置
+logging:
+  level:
+    com.team9.fitness: DEBUG
+    com.zrdds: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

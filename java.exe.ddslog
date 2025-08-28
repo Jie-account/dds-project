@@ -1,0 +1,23 @@
+********************  2025-08-28 13:58:18:969  ********************
+Current ZRDDS version(2.4.4-r2761701) for SEU was compiled at Aug 22 2025 16:10:46
+*******************************************************************
+********************  2025-08-28 13:58:19:005  ********************
+LOGINFO: LEVEL(WARNING)
+FUNC: SystemConfiguration.cpp:ZRDDSSystemConfigSetDomainParticipantConfig(LINE: 1192)
+ZRDDSSystemDomainParticipantConfig ignore unknown property (dds.transport.UDPv4.builtin.verbosity):(5)
+*******************************************************************
+********************  2025-08-28 14:11:02:669  ********************
+LOGINFO: LEVEL(ERROR)
+FUNC: NetLocatorInfo.cpp:NetLocatorSendMsg(LINE: 1938)
+local((017012ac)(5c950000)(00000000)(000001c1)) send to multicast(type(5) port(59420) addr(0100ffef 00000000 00000000 00000000) cpuId(0)) on (1) locator failed(10)
+*******************************************************************
+********************  2025-08-28 14:11:02:670  ********************
+LOGINFO: LEVEL(ERROR)
+FUNC: BuiltinParticipantWriter.cpp:BuiltinParticipantWriterSendParticipant(LINE: 687)
+local((017012ac)(5c950000)(00000000)) send data(p) to pdpAddr(length(1) type(5) port(e81c) addr(100ffef 00 00 00) cpuId(0) ) failed(-5).
+*******************************************************************
+********************  2025-08-28 14:11:02:670  ********************
+LOGINFO: LEVEL(ERROR)
+FUNC: BuiltinParticipantWriter.cpp:BuiltinParticipantWriterResendTimerCallback(LINE: 819)
+local((017012ac)(5c950000)(00000000)) periodically send data(p) failed(-1).
+*******************************************************************

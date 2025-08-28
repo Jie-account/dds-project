@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  # MySQL数据库服务
+  mysql:
+    image: mysql:8.0
+    container_name: fitness-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: dds
+      MYSQL_USER: fitness
+      MYSQL_PASSWORD: fitness123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - fitness-network
+    restart: unless-stopped
+
+  # 传感器监控系统应用
+  fitness-app:
+    build: .
+    container_name: fitness-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/dds?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: fitness
+      SPRING_DATASOURCE_PASSWORD: fitness123
+      JAVA_OPTS: "-Xmx512m -Xms256m"
+    depends_on:
+      - mysql
+    networks:
+      - fitness-network
+    restart: unless-stopped
+    volumes:
+      - ./logs:/app/logs
+      - ./config:/app/config
+
+volumes:
+  mysql_data:
+
+networks:
+  fitness-network:
+    driver: bridge

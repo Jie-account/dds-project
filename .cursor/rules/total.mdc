@@ -1,0 +1,51 @@
+---
+description:Total rule
+globs:
+alwaysApply: true
+---
+### 项目要求：
+
+基于ZRDDS中间件开发库，开发Android演示应用，演示分为：
+
+1. 后台：运行在计算机上的后台应用，使用Java开发完成；
+2. 前端：运行在Android上的APP应用；
+3. 前端和后台之间采用Http方式互联；
+4. 演示场景自拟，要求至少在前端后台之间完成4类主题的交换。
+5. 最后需要将依赖和JRE一起打包，交付可以在没有Java环境的情况下执行的文件
+6. 数据库使用MySQL
+
+### 项目设计：
+
+4个主题：
+
+1. Sensor/Temperature (传感器温度数据)
+2. Sensor/Humidity (传感器湿度数据)
+3. Control/Command (控制命令)
+4. Alert/Message (警报信息)
+
+程序设计：
+
+· 一个线程，模拟温度传感器，不断向 Sensor/Temperature 主题发布数据。
+· 一个线程，模拟湿度传感器，向 Sensor/Humidity 主题发布数据。
+· 一个线程，模拟控制台，向 Control/Command 主题发布命令，如：修改警报阙值等。
+· 一个订阅者，订阅 Control/Command 主题，收到命令后执行对应操作。
+· 一个订阅者，订阅所有传感器主题，计算平均值，如果超过阈值，就向 Alert/Message 主题发布一条警报。
+· 一个订阅者，订阅 Alert/Message 主题，负责接收和显示警报。
+
+后端保存最新的温度、湿度和所有的警报信息，前端实时展示最新温度、湿度和警报信息。并且前端可以修改警报阙值。
+
+### ZRDDS 资源
+
+D:\ZRDDS\ZRDDS-2.4.4
+
+E:\1 study\Project\fitness\lib
+
+### ZRDDS参考资料
+
+src/main/resources/ZRDDS_QOS_PROFILES.xml
+
+src/main/resources/ZRDDS故障排查指南.pdf
+
+src/main/resources/ZRDDS用户手册.pdf
+
+src/main/resources/javadoc/html/index.html

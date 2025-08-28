@@ -1,0 +1,45 @@
+<zrdds_qos>
+  2     <qos_library name="lib1">
+  3         <qos_profile name="profile1">
+  4         </qos_profile>
+  5     </qos_library>
+  6     <qos_library name="lib2">
+  7         <qos_profile name="profile2" base_name="lib1::profile1">
+  8             <participantfactory_qos name="DpF">
+  9                 <entity_factory>
+  10                     <autoenable_created_entities>false</autoenable_created_entities>
+  11                 </entity_factory>
+  12             </participantfactory_qos>
+  13             <participant_qos name="Dp">
+  14                 <usertraffic_receive_addresses>
+  15                     <addresses sequenceMaxLength="1">
+  16                         <element>tcpv4://default//0</element>
+  17                     </addresses>
+  18                 </usertraffic_receive_addresses>
+  19             </participant_qos>
+  20             <datawriter_qos name="Dw">
+  21                 <user_data>
+  22                     <value>DefaultExampleDWQos</value>
+  23                 </user_data>
+  24                 <history>
+  25                     <kind>KEEP_ALL_HISTORY_QOS</kind>
+  26                 </history>
+  27                 <reliability>
+  28                     <kind>RELIABLE_RELIABILITY_QOS</kind>
+  29                 </reliability>
+  30             </datawriter_qos>
+  31             <datareader_qos name="Dr">
+  32                 <user_data sequenceMaxLength="2">
+  33                     <value>41</value>
+  34                     <value>42</value>
+  35                 </user_data>
+  36                 <history>
+  37                     <kind>KEEP_ALL_HISTORY_QOS</kind>
+  38                 </history>
+  39                 <reliability>
+  40                     <kind>RELIABLE_RELIABILITY_QOS</kind>
+  41                 </reliability>
+  42             </datareader_qos>
+  43         </qos_profile>
+  44     </qos_library>
+  45 </zrdds_qos>
